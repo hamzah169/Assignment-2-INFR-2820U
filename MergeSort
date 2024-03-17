@@ -1,0 +1,54 @@
+import pygame  # Import the pygame library for sound effects
+
+def merge_sort(arr):
+    if len(arr) > 1:  # Check if the array has more than one element
+        mid = len(arr) // 2  # Calculate the middle index of the array
+        left_half = arr[:mid]  # Split the array into left and right halves
+        right_half = arr[mid:]
+
+        # Recursive calls for sorting the two halves
+        merge_sort(left_half)
+        merge_sort(right_half)
+
+        # Merge the sorted halves
+        i = j = k = 0
+        while i < len(left_half) and j < len(right_half):
+            if left_half[i] < right_half[j]:
+                arr[k] = left_half[i]
+                i += 1
+            else:
+                arr[k] = right_half[j]
+                j += 1
+            k += 1
+
+        # Copy the remaining elements of left_half (if any)
+        while i < len(left_half):
+            arr[k] = left_half[i]
+            i += 1
+            k += 1
+
+        # Copy the remaining elements of right_half (if any)
+        while j < len(right_half):
+            arr[k] = right_half[j]
+            j += 1
+            k += 1
+
+        # Play sound effect for each step
+        pygame.mixer.init()  # Initialize mixer for playing sound effects
+        sound_effect = pygame.mixer.Sound('beep-08b.wav')  # Load the sound effect file
+        sound_effect.play()  # Play the sound effect
+
+def print_array(arr):
+    for num in arr:
+        print(num, end=' ')  # Print each element of the array with a space
+    print()  # Move to the next line after printing all elements
+
+if __name__ == "__main__":
+    arr = [11, 1, 30, 2, 51, 6, 29, 7, 67, 15, 118, 4, 89, 23]
+    print("Original array:")
+    print_array(arr) # Prints original Array
+
+    merge_sort(arr)
+
+    print("\nSorted array:")
+    print_array(arr) # Prints Sorted Array
